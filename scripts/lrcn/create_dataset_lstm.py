@@ -61,33 +61,33 @@ class intersection_detector_node:
         self.learning = True
 
         self.save_tensor_flag = False
-        self.cat_tensor_flag = True
+        self.cat_tensor_flag = False
         self.select_dl = False
         self.start_time = time.strftime("%Y%m%d_%H:%M:%S")
         # self.path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/result'
+        self.save_image_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/'
+        self.save_label_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/'
         # self.save_image_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'
-        self.save_label_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'
-        self.save_image_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'
         # self.save_image_path ='/home/rdclab/Data/tensor/intersection_detactor/dataset/lrcn/image/re_cat/' 
         # self.save_label_path = 'home/rdclab/Data/tensor/intersection_detactor/dataset/lrcn/label/re_cat/'
         
-        self.load_image_folder_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/*/'
-        self.load_label_folder_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/*/'
+        # self.load_image_folder_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/*/'
+        # self.load_label_folder_path = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/*/'
         
-        name_1 = "blind"
-        # name_1 = "right"
-        name_2 = "add_area_re"
-        name_3 = "ele_dai_temae_go"
+        # name_1 = "blind"
+        # # name_1 = "right"
+        # name_2 = "add_area_re"
+        # name_3 = "ele_dai_temae_go"
         # name_1 = "dai_temae_howaie_migi"
         # name_2 = "dai_temae_migi_2"
         # name_3 = "dead_end_1"
 
-        self.load_image_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_1+'/image.pt'
-        self.load_label_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_1+'/label.pt'
-        self.load_image_path_2 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_2+'/image.pt'
-        self.load_label_path_2 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_2+'/label.pt'
-        self.load_image_path_3 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_3+'/image.pt'
-        self.load_label_path_3 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_3+'/label.pt'
+        # self.load_image_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_1+'/image.pt'
+        # self.load_label_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_1+'/label.pt'
+        # self.load_image_path_2 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_2+'/image.pt'
+        # self.load_label_path_2 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_2+'/label.pt'
+        # self.load_image_path_3 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_3+'/image.pt'
+        # self.load_label_path_3 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_3+'/label.pt'
 
         # self.load_image_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/image/add/re_cat/'+ name_1+'/image.pt'
         # self.load_label_path_1 = roslib.packages.get_pkg_dir('intersection_detector') + '/data/dataset/lrcn/label/add/re_cat/'+name_1+'/label.pt'

@@ -26,10 +26,8 @@ from torcheval.metrics.functional import binary_accuracy
 from torcheval.metrics import BinaryAccuracy
 # HYPER PARAM
 BATCH_SIZE = 32
-MAX_DATA = 2000
-# FRAME_SIZE = 10
 FRAME_SIZE = 16
-EPOCH_NUM = 30
+EPOCH_NUM = 10
 CLIP_VALUE = 4.0
 
 class Net(nn.Module):
@@ -105,7 +103,7 @@ class bag_to_tensor:
         #maech area
         #balance_weights = torch.tensor([1.0, 1.0,5.0,5.0,1.0,5.0,10.0,5.0]).to(self.device)
         #mech+add area
-        balance_weights = torch.tensor([1.0,10.0,7.0,7.0,0,5.0,5.0,5.0]).to(self.device)
+        balance_weights = torch.tensor([1.0, 39.5, 12.8, 13.8, 0, 5.1, 8.5, 5.9]).to(self.device)
         
         # balance_weights = torch.tensor([5.0,1.0,7.0,7.0,0,5.0,5.0,5.0]).to(self.device)
         self.criterion = nn.CrossEntropyLoss(weight=balance_weights)
@@ -113,8 +111,8 @@ class bag_to_tensor:
         self.first_test_flag = True
         self.first_time_flag = True
         torch.backends.cudnn.benchmark = False
-        self.writer = SummaryWriter(log_dir='/home/rdclab/orne_ws/src/intersection_detector/runs')
-        torch.manual_seed(0)
+        self.writer = SummaryWriter(log_dir='/home/takumi/catkin_ws/src/intersection_detector/runs')
+        # torch.manual_seed(0)
         torch.autograd.set_detect_anomaly(True)
         self.loss_all = 0.0
         self.intersection_test = torch.zeros(1,8).to(self.device)
@@ -192,18 +190,53 @@ class bag_to_tensor:
         return cat_image_tensor,cat_label_tensor
     
     def cat_tensor_2(self,image_1_path,image_2_path,label_1_path,label_2_path):
-        # load_1_image_tensor = torch.load(image_1_path).to(self.device,non_blocking=True)
-        # load_2_image_tensor = torch.load(image_2_path).to(self.device,non_blocking=True)
-        
-        # load_1_label_tensor = torch.load(label_1_path).to(self.device,non_blocking=True)
-        # load_2_label_tensor = torch.load(label_2_path).to(self.device,non_blocking=True)
-
-        # cat_image_tensor = torch.cat((load_1_image_tensor,load_2_image_tensor),dim=0)
-        # cat_label_tensor = torch.cat((load_1_label_tensor,load_2_label_tensor),dim=0)
         cat_image_tensor = torch.cat((torch.load(image_1_path).to(self.device,non_blocking=True),torch.load(image_2_path).to(self.device,non_blocking=True)),dim=0)
         cat_label_tensor = torch.cat((torch.load(label_1_path).to(self.device,non_blocking=True),torch.load(label_2_path).to(self.device,non_blocking=True)),dim=0)
         print(cat_image_tensor.shape)
         return cat_image_tensor,cat_label_tensor
+    
+    def cat_tensor_9(self, 
+                 image_1_path, image_2_path, image_3_path,   
+                 image_4_path, image_5_path, image_6_path, 
+                 image_7_path, image_8_path, image_9_path, 
+                 label_1_path, label_2_path, label_3_path, 
+                 label_4_path, label_5_path, label_6_path, 
+                 label_7_path, label_8_path, label_9_path):
+
+        load_1_image_tensor = torch.load(image_1_path).to(self.device, non_blocking=True)
+        load_2_image_tensor = torch.load(image_2_path).to(self.device, non_blocking=True)
+        load_3_image_tensor = torch.load(image_3_path).to(self.device, non_blocking=True)
+        load_4_image_tensor = torch.load(image_4_path).to(self.device, non_blocking=True)
+        load_5_image_tensor = torch.load(image_5_path).to(self.device, non_blocking=True)
+        load_6_image_tensor = torch.load(image_6_path).to(self.device, non_blocking=True)
+        load_7_image_tensor = torch.load(image_7_path).to(self.device, non_blocking=True)
+        load_8_image_tensor = torch.load(image_8_path).to(self.device, non_blocking=True)
+        load_9_image_tensor = torch.load(image_9_path).to(self.device, non_blocking=True)
+
+    # Load label tensors
+        load_1_label_tensor = torch.load(label_1_path).to(self.device, non_blocking=True)
+        load_2_label_tensor = torch.load(label_2_path).to(self.device, non_blocking=True)
+        load_3_label_tensor = torch.load(label_3_path).to(self.device, non_blocking=True)
+        load_4_label_tensor = torch.load(label_4_path).to(self.device, non_blocking=True)
+        load_5_label_tensor = torch.load(label_5_path).to(self.device, non_blocking=True)
+        load_6_label_tensor = torch.load(label_6_path).to(self.device, non_blocking=True)
+        load_7_label_tensor = torch.load(label_7_path).to(self.device, non_blocking=True)
+        load_8_label_tensor = torch.load(label_8_path).to(self.device, non_blocking=True)
+        load_9_label_tensor = torch.load(label_9_path).to(self.device, non_blocking=True)
+
+    # Concatenate image tensors
+        cat_image_tensor = torch.cat((load_1_image_tensor, load_2_image_tensor, load_3_image_tensor, 
+                                    load_4_image_tensor, load_5_image_tensor, load_6_image_tensor, 
+                                    load_7_image_tensor, load_8_image_tensor, load_9_image_tensor), dim=0)
+    
+    # Concatenate label tensors
+        cat_label_tensor = torch.cat((load_1_label_tensor, load_2_label_tensor, load_3_label_tensor, 
+                                    load_4_label_tensor, load_5_label_tensor, load_6_label_tensor, 
+                                    load_7_label_tensor, load_8_label_tensor, load_9_label_tensor), dim=0)
+
+        print("Concatenated image tensor shape:", cat_image_tensor.shape)
+        print("Concatenated label tensor shape:", cat_label_tensor.shape)
+        return cat_image_tensor, cat_label_tensor
     
     def load_path_tensor(self,image_file_path,label_file_path):
         # image_path_list = glob.glob(image_file_path+'\*'+'/image.pt')
@@ -296,12 +329,12 @@ class bag_to_tensor:
         return cat_image_tensor, cat_label_tensor
     def tensor_info(self, load_x_tensor,load_t_tensor):
         print(self.device)
-        load_x_tensor = torch.load(load_x_tensor)
-        load_t_tensor = torch.load(load_t_tensor)
+        # load_x_tensor = torch.load(load_x_tensor)
+        # load_t_tensor = torch.load(load_t_tensor)
         print("x_tensor:",load_x_tensor.shape,"t_tensor:",load_t_tensor.shape)
         print("label info :",torch.sum(load_t_tensor ,dim=0))
         
-    def cat_training(self, load_x_tensor,load_t_tensor,load_flag):
+    def cat_training(self, load_x_tensor, load_t_tensor, load_flag):
         # self.device = torch.device('cuda')
         print(self.device)
         if load_flag:

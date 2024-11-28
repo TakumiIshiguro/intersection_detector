@@ -1,4 +1,4 @@
 #please change your target rosbag
-rosbag play 0706_inter.bag
+rosbag play ~/bags/h.bag
 rosservice call /training_intersection "data: true"
 
