@@ -109,7 +109,6 @@ class deep_learning:
         self.first_test_flag = True
         self.first_time_flag = True
         torch.backends.cudnn.benchmark = False
-        self.writer = SummaryWriter(log_dir='/home/rdclab/orne_ws/src/intersection_detector/runs')
         torch.manual_seed(0)
         torch.autograd.set_detect_anomaly(True)
         self.loss_all = 0.0
