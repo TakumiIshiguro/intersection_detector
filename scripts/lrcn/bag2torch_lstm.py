@@ -27,7 +27,7 @@ from torcheval.metrics import BinaryAccuracy
 # HYPER PARAM
 BATCH_SIZE = 32
 FRAME_SIZE = 16
-EPOCH_NUM = 10
+EPOCH_NUM = 30
 CLIP_VALUE = 4.0
 
 class Net(nn.Module):
@@ -89,6 +89,8 @@ class bag_to_tensor:
         self.normalization = transforms.Compose([transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
         self.transform_color = transforms.ColorJitter(
             brightness=0.5, contrast=0.5, saturation=0.5)
+        self.random_erasing = transforms.RandomErasing(
+            p=0.25, scale=(0.02, 0.09), ratio=(0.3, 3.3), value= 'random')
         self.count = 0
         self.accuracy = 0
         self.results_train = {}
@@ -101,11 +103,11 @@ class bag_to_tensor:
         # # balance_weights = torch.tensor([1.0, 1.0,5.0,5.0,1.0,5.0,10.0,5.0]).to(self.device)
         # self.criterion = nn.CrossEntropyLoss(weight=balance_weights)
         #maech area
-        #balance_weights = torch.tensor([1.0, 1.0,5.0,5.0,1.0,5.0,10.0,5.0]).to(self.device)
+        # balance_weights = torch.tensor([1.0, 1.0,5.0,5.0,1.0,5.0,10.0,5.0]).to(self.device)
         #mech+add area
-        balance_weights = torch.tensor([1.0, 39.5, 12.8, 13.8, 0, 5.1, 8.5, 5.9]).to(self.device)
-        
-        # balance_weights = torch.tensor([5.0,1.0,7.0,7.0,0,5.0,5.0,5.0]).to(self.device)
+        # balance_weights = torch.tensor([1.0, 39.5, 12.8, 13.8, 0, 5.1, 8.5, 5.9]).to(self.device)
+        # 3camere
+        balance_weights = torch.tensor([1.0, 39.5, 14.0, 14.2, 0, 6.6, 7.0, 6.4]).to(self.device)
         self.criterion = nn.CrossEntropyLoss(weight=balance_weights)
         self.first_flag = True
         self.first_test_flag = True
@@ -364,11 +366,12 @@ class bag_to_tensor:
                 x_train = x_train.to(self.device,non_blocking=True)
                 t_label_train = t_label_train.to(self.device, non_blocking=True)
         # <use transform>
-                print("ddd=",len(x_train))
-                for i in range(len(x_train)):
-                    x_train[i, :, :, :, :] = self.transform_color(x_train[i,:, :, :, :])
-                    # self.transform_train(x_train[i,:,:,:,:])
-                    # x_train =self.normalization(x_train)
+                # print("ddd=",len(x_train))
+                # for i in range(len(x_train)):
+                #     x_train[i, :, :, :, :] = self.transform_color(x_train[i,:, :, :, :])
+                # x_train = self.transform_color(x_train)
+                # x_train = self.random_erasing(x_train)
+                #     # x_train =self.normalization(x_train)
         # <learning>
                 self.optimizer.zero_grad()
                 y_train = self.net(x_train)
