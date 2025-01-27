@@ -523,4 +523,4 @@ class deep_learning:
         self.net.load_state_dict(torch.load(load_path))
         print(load_path)
 if __name__ == '__main__':
-    b2t = bag_to_tensor()
+    dl = deep_learning()
